@@ -15,4 +15,4 @@ add_executable(flsim ${SOURCE_FILES})
 
 target_link_libraries(flsim PRIVATE sfml-graphics)
 
-add_compile_options(-Wall -Wextra -pedantic -g)
+add_compile_options(-Wall -Wextra -pedantic -O3)

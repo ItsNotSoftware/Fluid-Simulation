@@ -1,16 +1,8 @@
-#include <ui.hpp>
+#include "ui.hpp"
 
 UI::UI(u32 width, u32 height, u32 fps, std::string title)
     : window(sf::VideoMode(width, height), title) {
     window.setFramerateLimit(fps);
-
-    // Add particles
-    for (u32 i = 1; i < window.getSize().x / (PARTICLE_SIZE * 2) - 1; i++) {
-        for (u32 j = 1; j < window.getSize().y / (PARTICLE_SIZE * 4) - 2; j++) {
-            add_particle(PARTICLE_TEXTURE_SIZE, i * PARTICLE_SIZE * 2,
-                         window.getSize().y - j * PARTICLE_SIZE * 2);
-        }
-    }
 }
 
 void UI::handle_events() {
@@ -45,7 +37,7 @@ void UI::handle_events() {
     }
 }
 
-void UI::render() {
+void UI::render(std::vector<Particle>& particles) {
     static u32 x = 100;
 
     handle_events();
@@ -60,7 +52,11 @@ void UI::render() {
 
     // Draw particles
     for (auto& p : particles) {
-        fluid_texture.draw(p);
+        sf::CircleShape circle(p.get_r());
+        circle.setFillColor(sf::Color::Cyan);
+        circle.setPosition(p.get_x(), p.get_y());
+
+        fluid_texture.draw(circle);
     }
     fluid_texture.display();
 
@@ -71,13 +67,3 @@ void UI::render() {
 }
 
 bool UI::is_open() { return window.isOpen(); }
-
-void UI::add_particle(u32 size, u32 x, u32 y, sf::Color color) {
-    sf::CircleShape particle(size);
-    particle.setFillColor(color);
-    particle.setPosition(x, y);
-
-    particles.push_back(particle);
-}
-
-void UI::change_particle_position(u32 index, u32 x, u32 y) { particles[index].setPosition(x, y); }
