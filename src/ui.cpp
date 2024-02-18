@@ -4,10 +4,13 @@ UI::UI(u32 width, u32 height, u32 fps, std::string title)
     : window(sf::VideoMode(width, height), title) {
     window.setFramerateLimit(fps);
 
-    add_particle(10, 100, 100);
-    add_particle(10, 200, 200, sf::Color::Red);
-    add_particle(10, 300, 300, sf::Color::Green);
-    add_particle(10, 400, 400, sf::Color::Cyan);
+    // Add particles
+    for (u32 i = 1; i < window.getSize().x / (PARTICLE_SIZE * 2) - 1; i++) {
+        for (u32 j = 1; j < window.getSize().y / (PARTICLE_SIZE * 4) - 2; j++) {
+            add_particle(PARTICLE_TEXTURE_SIZE, i * PARTICLE_SIZE * 2,
+                         window.getSize().y - j * PARTICLE_SIZE * 2);
+        }
+    }
 }
 
 void UI::handle_events() {

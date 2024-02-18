@@ -3,12 +3,11 @@
 #include <ui.hpp>
 
 int main() {
-    UI ui(900, 600, 60, "SFML Example");
+    UI ui(900, 600, 60, "flsim");
 
     while (ui.is_open()) {
         ui.render();
     }
 
-    ui.render();
     return 0;
 }

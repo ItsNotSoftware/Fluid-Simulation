@@ -6,6 +6,9 @@
 
 #define BACKGROUND_COLOR sf::Color::Black
 
+constexpr f32 PARTICLE_SIZE = 5;
+constexpr f32 PARTICLE_TEXTURE_SIZE = PARTICLE_SIZE - 0.1;
+
 #define ERROR_CREATING_RENDER_TEXTURE()                     \
     std::cerr << "Failed to create render texture" << endl; \
     exit(1)
@@ -16,7 +19,7 @@ class UI {
 
     bool is_open();
     void render();
-    void add_particle(u32 size, u32 x, u32 y, sf::Color color = sf::Color::Blue);
+    void add_particle(u32 size, u32 x, u32 y, sf::Color color = sf::Color::Cyan);
     void change_particle_position(u32 index, u32 x, u32 y);
 
    private:
